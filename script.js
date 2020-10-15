@@ -60,8 +60,7 @@ function getPasswordCharactersInput() {
   return passwordObj;
 }
 
-// TODO - if it doesnt have and SHOULD, replace a random chracter in the stirng with a random upper case character
-
+// The following 'has...' functions check string for required parameter
 function hasUpperCase(input) {
   // Check if strings are not equal after converting to the opposite case
   return input !== input.toLowerCase();
@@ -101,17 +100,17 @@ function getRandomInt(max) {
 function validatePassword(password) {
   console.log(passwordObj);
   if (passwordObj.lowerCase && !hasLowerCase(password)) {
-    console.log(`${password} missing lowercase`);
+    console.log(`'${password}' missing lowercase`);
     // replace random chracter with random lower case charcter
     password = password.replace(password[getRandomInt(password.length - 1)], alphaString[getRandomInt(alphaString.length - 1)]);
   }
   if (passwordObj.upperCase && !hasUpperCase(password)) {
-    console.log(`${password} missing uppercase`);
+    console.log(`'${password}' missing uppercase`);
     // replace random chracter with random upper case charcter
     password = password.replace(password[getRandomInt(password.length - 1)], alphaString[getRandomInt(alphaString.length - 1)].toUpperCase());
   }
   if (passwordObj.specialCharacers && !hasAcceptedSpecialCharacter(password)) {
-    console.log(`${password} missing special character`);
+    console.log(`'${password}' missing special character`);
     // replace random chracter with random special charcter
     password = password.replace(password[getRandomInt(password.length - 1)], specialCharacterString[getRandomInt(specialCharacterString.length - 1)]);
   }
