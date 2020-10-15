@@ -76,7 +76,7 @@ function getPasswordCharactersInput() {
 }
 
 // The following 'has...' functions check string for required parameter.
-// Found this elegant solution on StackOverflow...https://stackoverflow.com/a/2830891/5248443
+// Found this elegant solution on StackOverflow...https://stackoverflow.com/a/2830852/5248443
 function hasUpperCase(input) {
   // Check if strings are not equal after converting to the opposite case
   return input !== input.toLowerCase();
