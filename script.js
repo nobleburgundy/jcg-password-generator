@@ -39,6 +39,8 @@ function getPasswordCharactersInput() {
     specialChars = confirm("Would you like to include special characters?");
     if (upperCase || lowerCase || numeric || specialChars) {
       atLeastOne = true;
+    } else {
+      alert("Please choose 'Ok' in at least one in the following prompts: upper case, lower case, numeric, or special.");
     }
   }
 
