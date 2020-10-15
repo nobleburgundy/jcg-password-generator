@@ -1,12 +1,12 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
-// Declarations
+// Variable/Constant Declarations
 let passwordObj = {};
 let allPossibleCharacterString = "";
-const alphaString = "abcdefghijklmnopqrstuvwxyz";
-const numString = "0123456789";
-const specialCharacterString = " !\"#$%&'()*+,-./:;<=>?@[]^_`{|}~";
+const ALPHA_STR = "abcdefghijklmnopqrstuvwxyz";
+const NUM_STR = "0123456789";
+const SPECIALCHAR_STR = " !\"#$%&'()*+,-./:;<=>?@[]^_`{|}~";
 
 // Write password to the #password input
 function writePassword() {
@@ -31,6 +31,7 @@ function getPasswordCharactersInput() {
   let upperCase = false;
   let specialChars = false;
   let numeric = false;
+
   // Need at least one of the following
   while (!atLeastOne) {
     upperCase = confirm("Would you like to include uppercase characters?");
@@ -70,6 +71,7 @@ function getPasswordCharactersInput() {
     numeric: numeric,
     specialCharacers: specialChars,
   };
+
   return passwordObj;
 }
 
@@ -85,22 +87,25 @@ function hasLowerCase(input) {
 
 function hasNumber(input) {
   let containsNum = false;
-  for (let index = 0; index < numString.length; index++) {
-    if (input.indexOf(numString[index]) > -1) {
+  for (let index = 0; index < NUM_STR.length; index++) {
+    if (input.indexOf(NUM_STR[index]) > -1) {
       containsNum = true;
+      break;
     }
   }
+
   return containsNum;
 }
 
 function hasAcceptedSpecialCharacter(input) {
   let containsSpecialCharacter = false;
-  for (let index = 0; index < specialCharacterString.length; index++) {
-    if (input.indexOf(specialCharacterString[index]) > -1) {
+  for (let index = 0; index < SPECIALCHAR_STR.length; index++) {
+    if (input.indexOf(SPECIALCHAR_STR[index]) > -1) {
       containsSpecialCharacter = true;
       break;
     }
   }
+
   return containsSpecialCharacter;
 }
 
@@ -109,39 +114,45 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
-// Make sure the password string has each of the required parameters
+// Validate the password string has each of the required parameters
 function validatePassword(password) {
-  console.log(passwordObj);
+  // Make sure it has a lower case character if it should
   if (passwordObj.lowerCase && !hasLowerCase(password)) {
     console.log(`'${password}' missing lowercase`);
     // replace random chracter with random lower case charcter
     password = password.replace(
       password[getRandomInt(password.length - 1)],
-      alphaString[getRandomInt(alphaString.length - 1)]
+      ALPHA_STR[getRandomInt(ALPHA_STR.length - 1)]
     );
   }
+
+  // Make sure it has an upper case character if it should
   if (passwordObj.upperCase && !hasUpperCase(password)) {
     console.log(`'${password}' missing uppercase`);
     // replace random chracter with random upper case charcter
     password = password.replace(
       password[getRandomInt(password.length - 1)],
-      alphaString[getRandomInt(alphaString.length - 1)].toUpperCase()
+      ALPHA_STR[getRandomInt(ALPHA_STR.length - 1)].toUpperCase()
     );
   }
+
+  // Make sure the password has a special character if it should
   if (passwordObj.specialCharacers && !hasAcceptedSpecialCharacter(password)) {
     console.log(`'${password}' missing special character`);
     // replace random chracter with random special charcter
     password = password.replace(
       password[getRandomInt(password.length - 1)],
-      specialCharacterString[getRandomInt(specialCharacterString.length - 1)]
+      SPECIALCHAR_STR[getRandomInt(SPECIALCHAR_STR.length - 1)]
     );
   }
+
+  // Make sure the password has a numeric character if it should
   if (passwordObj.numeric && !hasNumber(password)) {
     console.log(`'${password}' missing numeric character`);
     // replace random chracter with numeric special charcter
     password = password.replace(
       password[getRandomInt(password.length - 1)],
-      numString[getRandomInt(numString.length - 1)]
+      NUM_STR[getRandomInt(NUM_STR.length - 1)]
     );
   }
 
@@ -151,19 +162,22 @@ function validatePassword(password) {
 function generatePassword() {
   getPasswordCharactersInput();
   let passwordString = "";
+
+  // Generate string of all possible characters to generate password from based on user input.
   if (passwordObj.lowerCase) {
-    allPossibleCharacterString += alphaString;
+    allPossibleCharacterString += ALPHA_STR;
   }
   if (passwordObj.upperCase) {
-    allPossibleCharacterString += alphaString.toUpperCase();
+    allPossibleCharacterString += ALPHA_STR.toUpperCase();
   }
   if (passwordObj.numeric) {
-    allPossibleCharacterString += numString;
+    allPossibleCharacterString += NUM_STR;
   }
   if (passwordObj.specialCharacers) {
-    allPossibleCharacterString += specialCharacterString;
+    allPossibleCharacterString += SPECIALCHAR_STR;
   }
 
+  // Generate password by iteration for the length of the password and get random characters from allPossibleCharactersString
   for (let index = 0; index < passwordObj.length; index++) {
     let randomCharacterIndex = getRandomInt(allPossibleCharacterString.length);
     passwordString += allPossibleCharacterString[randomCharacterIndex];
