@@ -6,7 +6,7 @@ let passwordObj = {};
 let allPossibleCharacterString = "";
 const alphaString = "abcdefghijklmnopqrstuvwxyz";
 const numString = "0123456789";
-const specialCharacterString = " !\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
+const specialCharacterString = " !\"#$%&'()*+,-./:;<=>?@[]^_`{|}~";
 
 // Write password to the #password input
 function writePassword() {
@@ -40,15 +40,23 @@ function getPasswordCharactersInput() {
     if (upperCase || lowerCase || numeric || specialChars) {
       atLeastOne = true;
     } else {
-      alert("Please choose 'Ok' in at least one in the following prompts: upper case, lower case, numeric, or special.");
+      alert(
+        "Please choose 'Ok' in at least one in the following prompts: upper case, lower case, numeric, or special."
+      );
     }
   }
 
   // Get password length
   let acceptableLength = false;
-  let passwordLength = prompt("How long would you like your password to be (min 8 max 128)?");
+  let passwordLength = prompt(
+    "How long would you like your password to be (min 8 max 128)?"
+  );
   while (!acceptableLength) {
-    if (parseInt(passwordLength) < 8 || parseInt(passwordLength) > 128 || isNaN(parseInt(passwordLength))) {
+    if (
+      parseInt(passwordLength) < 8 ||
+      parseInt(passwordLength) > 128 ||
+      isNaN(parseInt(passwordLength))
+    ) {
       passwordLength = prompt("Please try again and select between 8 and 128:");
     } else {
       acceptableLength = true;
@@ -56,12 +64,12 @@ function getPasswordCharactersInput() {
   }
 
   passwordObj = {
-    "length": parseInt(passwordLength),
-    "lowerCase": lowerCase,
-    "upperCase": upperCase,
-    "numeric": numeric,
-    "specialCharacers": specialChars
-  }
+    length: parseInt(passwordLength),
+    lowerCase: lowerCase,
+    upperCase: upperCase,
+    numeric: numeric,
+    specialCharacers: specialChars,
+  };
   return passwordObj;
 }
 
@@ -107,22 +115,34 @@ function validatePassword(password) {
   if (passwordObj.lowerCase && !hasLowerCase(password)) {
     console.log(`'${password}' missing lowercase`);
     // replace random chracter with random lower case charcter
-    password = password.replace(password[getRandomInt(password.length - 1)], alphaString[getRandomInt(alphaString.length - 1)]);
+    password = password.replace(
+      password[getRandomInt(password.length - 1)],
+      alphaString[getRandomInt(alphaString.length - 1)]
+    );
   }
   if (passwordObj.upperCase && !hasUpperCase(password)) {
     console.log(`'${password}' missing uppercase`);
     // replace random chracter with random upper case charcter
-    password = password.replace(password[getRandomInt(password.length - 1)], alphaString[getRandomInt(alphaString.length - 1)].toUpperCase());
+    password = password.replace(
+      password[getRandomInt(password.length - 1)],
+      alphaString[getRandomInt(alphaString.length - 1)].toUpperCase()
+    );
   }
   if (passwordObj.specialCharacers && !hasAcceptedSpecialCharacter(password)) {
     console.log(`'${password}' missing special character`);
     // replace random chracter with random special charcter
-    password = password.replace(password[getRandomInt(password.length - 1)], specialCharacterString[getRandomInt(specialCharacterString.length - 1)]);
+    password = password.replace(
+      password[getRandomInt(password.length - 1)],
+      specialCharacterString[getRandomInt(specialCharacterString.length - 1)]
+    );
   }
   if (passwordObj.numeric && !hasNumber(password)) {
     console.log(`'${password}' missing numeric character`);
     // replace random chracter with numeric special charcter
-    password = password.replace(password[getRandomInt(password.length - 1)], numString[getRandomInt(numString.length - 1)]);
+    password = password.replace(
+      password[getRandomInt(password.length - 1)],
+      numString[getRandomInt(numString.length - 1)]
+    );
   }
 
   return password;
