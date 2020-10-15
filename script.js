@@ -94,6 +94,24 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
+// Make sure the password string has each of the required parameters
+function validatePassword(password) {
+  if (passwordObj.lowerCase && !hasLowerCase(password)) {
+    // replace random chracter with random lower case charcter
+    password = password.replace(password[getRandomInt(password.length - 1)], alphaString[getRandomInt(alphaString.length - 1)]);
+  }
+  if (passwordObj.upperCase && !hasUpperCase(password)) {
+    // replace random chracter with random upper case charcter
+    password = password.replace(password[getRandomInt(password.length - 1)], alphaString[getRandomInt(alphaString.length - 1)].toUpperCase());
+  }
+  if (passwordObj.specialCharacers && !hasAcceptedSpecialCharacter(password)) {
+    // replace random chracter with random special charcter
+    password = password.replace(password[getRandomInt(password.length - 1)], alphaString[getRandomInt(alphaString.length - 1)]);
+  }
+
+  return password;
+}
+
 function generatePassword() {
   let finalPassword = "";
   let passwordInputObj = getPasswordCharactersInput();
