@@ -57,6 +57,43 @@ function getPasswordCharactersInput() {
   return passwordObj;
 }
 
+// TODO - if it doesnt have and SHOULD, replace a random chracter in the stirng with a random upper case character
+
+function hasUpperCase(input) {
+  // Check if strings are not equal after converting to the opposite case
+  return input !== input.toLowerCase();
+}
+
+function hasLowerCase(input) {
+  return input !== input.toUpperCase();
+}
+
+function hasNumber(input) {
+  let containsNum = false;
+  for (let index = 0; index < numString.length; index++) {
+    if (input.indexOf(numString[index]) > -1) {
+      containsNum = true;
+    }
+  }
+  return containsNum;
+}
+
+function hasAcceptedSpecialCharacter(input) {
+  let containsSpecialCharacter = false;
+  for (let index = 0; index < specialCharacterString.length; index++) {
+    if (input.indexOf(specialCharacterString[index]) > -1) {
+      containsSpecialCharacter = true;
+      break;
+    }
+  }
+  return containsSpecialCharacter;
+}
+
+// Function to get a random integer between 0 and the max
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
 function generatePassword() {
   let finalPassword = "";
   let passwordInputObj = getPasswordCharactersInput();
@@ -72,7 +109,7 @@ function generatePassword() {
   console.log(allPossibleCharacterString);
 
   for (let index = 0; index < passwordInputObj.length; index++) {
-    let randomCharacterIndex = Math.floor(Math.random() * allPossibleCharacterString.length);
+    let randomCharacterIndex = getRandomInt(allPossibleCharacterString.length);
     finalPassword += allPossibleCharacterString[randomCharacterIndex];
   }
   console.log("Final Password = " + finalPassword);
