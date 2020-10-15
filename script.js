@@ -3,6 +3,7 @@ var generateBtn = document.querySelector("#generate");
 
 // Declarations
 let passwordObj = {};
+let allPossibleCharacterString = "";
 const alphaString = "abcdefghijklmnopqrstuvwxyz";
 const numString = "0123456789";
 const specialCharacterString = " !\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
@@ -14,6 +15,8 @@ function writePassword() {
 
   passwordText.value = password;
 
+  // clear allPossibleCharacterString for multiple runs
+  allPossibleCharacterString = "";
 }
 
 // Get password parameter input from the user of at least one:
@@ -96,17 +99,21 @@ function getRandomInt(max) {
 
 // Make sure the password string has each of the required parameters
 function validatePassword(password) {
+  console.log(passwordObj);
   if (passwordObj.lowerCase && !hasLowerCase(password)) {
+    console.log(`${password} missing lowercase`);
     // replace random chracter with random lower case charcter
     password = password.replace(password[getRandomInt(password.length - 1)], alphaString[getRandomInt(alphaString.length - 1)]);
   }
   if (passwordObj.upperCase && !hasUpperCase(password)) {
+    console.log(`${password} missing uppercase`);
     // replace random chracter with random upper case charcter
     password = password.replace(password[getRandomInt(password.length - 1)], alphaString[getRandomInt(alphaString.length - 1)].toUpperCase());
   }
   if (passwordObj.specialCharacers && !hasAcceptedSpecialCharacter(password)) {
+    console.log(`${password} missing special character`);
     // replace random chracter with random special charcter
-    password = password.replace(password[getRandomInt(password.length - 1)], alphaString[getRandomInt(alphaString.length - 1)]);
+    password = password.replace(password[getRandomInt(password.length - 1)], specialCharacterString[getRandomInt(specialCharacterString.length - 1)]);
   }
 
   return password;
@@ -122,16 +129,16 @@ function generatePassword() {
     allPossibleCharacterString += alphaString.toUpperCase();
   }
   if (passwordInputObj.specialCharacers) {
-    allPossibleCharacterString += specialChracterString;
+    allPossibleCharacterString += specialCharacterString;
   }
-  console.log(allPossibleCharacterString);
 
   for (let index = 0; index < passwordInputObj.length; index++) {
     let randomCharacterIndex = getRandomInt(allPossibleCharacterString.length);
     finalPassword += allPossibleCharacterString[randomCharacterIndex];
   }
-  console.log("Final Password = " + finalPassword);
-  return finalPassword;
+
+  // Make sure it satisfies user requirements of upper, lower, special characters
+  return validatePassword(finalPassword);
 }
 
 // Add event listener to generate button
