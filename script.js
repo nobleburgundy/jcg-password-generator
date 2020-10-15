@@ -57,5 +57,27 @@ function getPasswordCharactersInput() {
   return passwordObj;
 }
 
+function generatePassword() {
+  let finalPassword = "";
+  let passwordInputObj = getPasswordCharactersInput();
+  if (passwordInputObj.lowerCase) {
+    allPossibleCharacterString += alphaString;
+  }
+  if (passwordInputObj.upperCase) {
+    allPossibleCharacterString += alphaString.toUpperCase();
+  }
+  if (passwordInputObj.specialCharacers) {
+    allPossibleCharacterString += specialChracterString;
+  }
+  console.log(allPossibleCharacterString);
+
+  for (let index = 0; index < passwordInputObj.length; index++) {
+    let randomCharacterIndex = Math.floor(Math.random() * allPossibleCharacterString.length);
+    finalPassword += allPossibleCharacterString[randomCharacterIndex];
+  }
+  console.log("Final Password = " + finalPassword);
+  return finalPassword;
+}
+
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
