@@ -6,26 +6,10 @@ This is a password generator that prompts the user for the password parameters. 
 
 ## Images
 
-First Prompt:
+### Demo:
 
-![Upper Case Prompt](./assets/upper_case_prompt.png)
-
-Upper Case/Lower Case/Numeric/Special Character Missing Prompt:
-
-![Upper Case/Lower Case/Numeric/Special Character Missing Prompt](./assets/password_parameter_error.png)
-
-Password Length Prompt:
-
-![Password Length Prompt](./assets/password_length_prompt.png)
-
-Password Length Error:
-
-![Password Length Error](./assets/password_length_error_prompt.png)
-
-Password Generation Example:
-
-![Password Generation Example](./assets/password_generated.png)
+![Upper Case Prompt](./assets/password-generator-demo.gif)
 
 ## Link
 
-You can find the deployed application of this site [here](https://nobleburgundy.github.io/jcg-password-generator).
+You can find the deployed site [here](https://nobleburgundy.github.io/jcg-password-generator).
